@@ -8,6 +8,8 @@ worldcup-manager-2026
 
 Build a full-stack tournament manager for one fixed World Cup style knockout competition.
 
+This is a school assignment focused on learning fullstack JavaScript/TypeScript and showcasing a clear end-to-end CRUD application.
+
 The app must support:
 
 - tournament progression from 8th Final to Final
@@ -40,6 +42,8 @@ The app must support:
 - Multi-season and multi-competition support
 - Advanced analytics beyond standings and top scorers
 - Payment, notifications, social features
+- Real-world perfect football/tournament rule modeling
+- Production-grade scaling and enterprise-level platform concerns
 
 ## Canonical domain decisions
 
@@ -74,3 +78,6 @@ The app must support:
 - Easy AI reproducibility
 - Simple but strict business rule enforcement
 - Human-editable markdown documentation as single source of truth
+- Beginner-friendly readability over advanced optimization
+- Clean and pleasant UI/UX without prioritizing visual perfection
+- Easy to demo and explain in an academic setting

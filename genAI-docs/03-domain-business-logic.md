@@ -1,5 +1,7 @@
 # 03 - Domain and Business Logic
 
+This file keeps the tournament rules explicit but beginner-friendly.
+
 ## 1. Core invariants
 
 - A match must have either both teams assigned or both null.
@@ -9,7 +11,17 @@
 - Player shirt number unique per team.
 - Goal scorer must be an available player in scoring team.
 
-## 2. Round progression algorithm
+## 2. Canonical helper rules (derived logic)
+
+Use these simple checks everywhere in services:
+
+- `isRoundFinished(roundN)`: every match in round N is `FINISHED` and has valid non-draw scores.
+- `isRoundComplete(roundN)`: `isRoundFinished(roundN)` and progression to round N+1 has succeeded.
+- `canEditRound(roundN)`: true for round 1, otherwise `isRoundComplete(roundN - 1)`.
+
+Round completion is derived state. It is not a match status value.
+
+## 3. Round progression algorithm
 
 Input: completed `roundOrderNumber` (1..4).
 
@@ -29,15 +41,15 @@ Algorithm:
 
 Round completion is derived after this workflow succeeds.
 
-## 3. Edit lock rule
+## 4. Edit lock rule
 
 For any match in round N > 1:
 
-- status update forbidden if round N-1 is not complete (all matches `FINISHED` and progression executed)
-- result update forbidden if round N-1 is not complete (all matches `FINISHED` and progression executed)
-- goal add/edit forbidden if round N-1 is not complete (all matches `FINISHED` and progression executed)
+- status update forbidden if `canEditRound(N)` is false
+- result update forbidden if `canEditRound(N)` is false
+- goal add/edit forbidden if `canEditRound(N)` is false
 
-## 4. Match status transitions
+## 5. Match status transitions
 
 ### Referee transitions
 
@@ -54,7 +66,7 @@ Referee cannot set arbitrary statuses.
 
 - Once all matches in round N are `FINISHED` and winner progression to N+1 succeeds, round N becomes complete (derived state).
 
-## 5. Result update rules
+## 6. Result update rules
 
 - Match must have assigned teams.
 - Match must be `IN_PROGRESS` before result submission.
@@ -68,7 +80,7 @@ Referee cannot set arbitrary statuses.
   - no draw values
 - Default result status after valid update: `FINISHED`.
 
-## 6. Simulation rules
+## 7. Simulation rules
 
 - Round simulation is admin-only.
 - Previous round must be complete (except first round).
@@ -76,7 +88,7 @@ Referee cannot set arbitrary statuses.
 - Every simulated match must produce non-draw outcome.
 - Goals must reference valid players from participating teams.
 
-## 7. Standings and top scorers
+## 8. Standings and top scorers
 
 ### Standings
 
@@ -93,7 +105,16 @@ Draws are not part of this competition model and should never occur in persisted
 Aggregate goal count by player id.
 Return player name, team id/name/flag, goals.
 
-## 8. Known clean-up targets for rebuild
+## 9. Minimal implementation sequence (service layer)
+
+1. Validate role.
+2. Validate round lock with `canEditRound`.
+3. Validate match preconditions (teams assigned, status flow allowed).
+4. Apply update (status/result/goals).
+5. If all matches in round are now `FINISHED`, try progression.
+6. If progression succeeds, treat round as complete (derived).
+
+## 10. Known clean-up targets for rebuild
 
 To keep the new clean build consistent:
 

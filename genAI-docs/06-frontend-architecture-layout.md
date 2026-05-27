@@ -1,11 +1,14 @@
 # 06 - Frontend Architecture and Layout
 
+This document describes a simple, clear frontend structure for the assignment.
+
 ## 1. Frontend goals
 
 - show tournament state clearly
 - enforce UX-level role restrictions
 - keep API calls out of UI components
 - keep components reusable and testable
+- keep code easy to read and explain by a novice developer
 
 ## 2. Frontend stack
 
@@ -47,6 +50,8 @@ front-end/
     index.ts
 ```
 
+Keep this structure simple. Do not add extra folders unless needed by assignment scope.
+
 ## 4. Layout and navigation rules
 
 - Global `Layout` wraps every page in `_app.tsx`.
@@ -56,6 +61,12 @@ front-end/
   - admin: admin page visible
   - referee: referee page visible
 - Language switcher always available.
+
+Simple navigation rule:
+
+- guest sees only public pages
+- logged-in users see user pages
+- role-specific pages appear only for allowed roles
 
 ## 5. Page responsibilities
 
@@ -79,6 +90,8 @@ front-end/
 - `referee.tsx`:
   - assigned matches list and quick actions
 
+Each page should focus on one main job and delegate API calls to services.
+
 ## 6. State and data flow
 
 - Session context stores `token`, `user`, `isAuthenticated`.
@@ -86,11 +99,21 @@ front-end/
 - Service modules call a shared API client wrapper.
 - UI components do not call `fetch` directly.
 
+Recommended flow per page:
+
+1. read session/role from context
+2. request data via service + SWR
+3. render loading, error, or data state
+4. call service mutations for actions
+5. revalidate data after successful mutation
+
 ## 7. Route guard policy
 
 - Guests can access public pages only.
 - Protected pages show clear access-denied messaging.
 - Forbidden role should receive explanation, not blank page.
+
+Frontend guards improve UX, but backend authorization remains the source of truth.
 
 ## 8. i18n policy
 
@@ -103,9 +126,21 @@ front-end/
   - login/register
   - matches or stats
 
+Keep translation keys short and consistent so they are easy to maintain.
+
 ## 9. UX consistency rules for rebuild
 
 - Use consistent status badges and labels.
 - Keep table columns aligned across pages.
 - Keep actions disabled when business preconditions fail.
 - Surface backend error messages in user-readable blocks.
+
+UI/UX should look clean and organized, but avoid spending assignment time on excessive visual complexity.
+
+## 10. Beginner-friendly frontend guardrails
+
+- Keep components small and purposeful.
+- Prefer explicit prop names and type names.
+- Avoid deeply nested component trees when not necessary.
+- Add concise comments only for non-obvious logic.
+- Use shared UI patterns (cards, tables, badges, buttons) consistently across pages.

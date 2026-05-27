@@ -7,6 +7,7 @@ Use this list to verify the rebuilt project is complete and consistent.
 - [ ] Single fixed competition configured
 - [ ] Fixed rounds seeded (8/4/2/1)
 - [ ] No out-of-scope features added
+- [ ] Implementation remains aligned with school assignment intent (fullstack CRUD showcase)
 
 ## Data model
 
@@ -45,6 +46,7 @@ Use this list to verify the rebuilt project is complete and consistent.
 - [ ] API services isolated from UI components
 - [ ] Overview, matches, stats, admin, referee pages implemented
 - [ ] Protected pages show clear access messaging
+- [ ] UI is clean and consistent without over-prioritizing visual polish
 
 ## i18n
 
@@ -63,6 +65,13 @@ Use this list to verify the rebuilt project is complete and consistent.
 - [ ] Domain tests pass
 - [ ] Service tests pass
 - [ ] Manual Swagger verification done
+
+## Readability and learning quality
+
+- [ ] Code is easy to read and explain by a novice developer
+- [ ] Naming is explicit and consistent
+- [ ] Complex logic has concise explanatory comments where needed
+- [ ] No unnecessary abstractions or over-engineered patterns
 
 ## Consistency audit
 

@@ -8,6 +8,8 @@ This playbook gives you clean prompts to regenerate the project with AI in contr
 - Do not ask AI to build everything in one prompt.
 - Validate tests and behavior after each phase.
 - Use these markdown files as hard constraints.
+- Keep implementation simple and beginner-friendly; avoid over-engineering.
+- Treat this project as a school assignment and CRUD showcase, not a production platform.
 
 ## Phase 0 prompt: repository scaffold
 
@@ -105,3 +107,5 @@ Expected outcome:
 ## AI guardrail prompt (use before each phase)
 
 "Before coding, list the exact requirements you are enforcing from genAI-docs. If any existing code conflicts, propose the cleanest consistent fix and apply it everywhere (DB types, backend types, frontend types, i18n labels)."
+
+"Prefer readability and explicit structure over advanced abstractions. Keep code easy to explain for a novice JavaScript developer."

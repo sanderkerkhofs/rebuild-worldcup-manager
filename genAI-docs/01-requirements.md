@@ -105,6 +105,8 @@ Note: Guest is unauthenticated and not stored in the database.
 - Domain models: invariant and input validation.
 - Repository/ORM mapping isolated from service contracts.
 
+Implementation should remain beginner-friendly and avoid unnecessary abstraction layers.
+
 ### NFR-03 API quality
 
 - Swagger docs complete and executable.
@@ -121,9 +123,16 @@ Note: Guest is unauthenticated and not stored in the database.
 
 - Responsive desktop/mobile pages.
 - Clear error messages for forbidden and invalid operations.
+- UI should look clean and consistent, but visual polish is secondary to functional correctness and code clarity.
 
 ### NFR-06 Testability
 
 - Domain validations fully unit tested.
 - Service layer business logic fully unit tested.
 - Controller flows manually verifiable via Swagger.
+
+### NFR-07 Readability and explainability
+
+- Code should be easy to read and explain by a novice developer.
+- Use clear naming and concise comments for non-obvious logic.
+- Prefer simple, explicit implementations over clever patterns.

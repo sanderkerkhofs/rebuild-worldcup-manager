@@ -2,12 +2,16 @@
 
 This folder is the clean source-of-truth documentation to recreate the full project with AI from scratch.
 
+This project is a school assignment and learning project for fullstack JavaScript/TypeScript.
+
 ## How to use this folder
 
 1. Read `00-project-charter.md` first.
 2. Use `01` to `08` as implementation references.
 3. Use `09-ai-rebuild-playbook.md` to generate the project in phases with AI.
 4. Track progress with `10-definition-of-done-checklist.md`.
+5. Read `12-project-intent-and-learning-goals.md` to keep implementation decisions aligned with assignment intent.
+6. Review `13-docs-consistency-audit-2026-05-28.md` for final canonical consistency decisions.
 
 ## File index
 
@@ -23,6 +27,8 @@ This folder is the clean source-of-truth documentation to recreate the full proj
 - `09-ai-rebuild-playbook.md`
 - `10-definition-of-done-checklist.md`
 - `11-recreation-analysis.md`
+- `12-project-intent-and-learning-goals.md`
+- `13-docs-consistency-audit-2026-05-28.md`
 
 ## Design intent
 
@@ -30,3 +36,4 @@ This folder is the clean source-of-truth documentation to recreate the full proj
 - Keep the implementation simple but layered and testable.
 - Preserve school requirements (Express + Next.js + Prisma + PostgreSQL + JWT + Swagger + Jest + i18n).
 - Make all decisions explicit so AI generation stays consistent and clean.
+- Prioritize readable code and clear structure for a novice developer over advanced production optimizations.
