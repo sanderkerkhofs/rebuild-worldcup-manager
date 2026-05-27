@@ -1,16 +1,16 @@
 services:
   postgres:
     image: postgres:16-alpine
-    container_name: tournament_manager_postgres
+    container_name: rebuild_tournament_manager_postgres
     restart: unless-stopped
     environment:
       POSTGRES_USER: tournament
       POSTGRES_PASSWORD: tournament
-      POSTGRES_DB: tournament_manager
+      POSTGRES_DB: rebuild_tournament_manager
     ports:
-      - "5432:5432"
+      - "5433:5432"
     volumes:
-      - tournament_manager_pgdata:/var/lib/postgresql/data
+      - rebuild_tournament_manager_pgdata:/var/lib/postgresql/data
 
 volumes:
-  tournament_manager_pgdata:
+  rebuild_tournament_manager_pgdata:

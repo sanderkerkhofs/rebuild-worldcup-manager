@@ -5,7 +5,7 @@
 ## Backend env
 
 - `APP_PORT`
-- `DATABASE_URL=postgresql://tournament:tournament@localhost:5432/tournament_manager?schema=public`
+- `DATABASE_URL=postgresql://tournament:tournament@localhost:5433/rebuild_tournament_manager?schema=public`
 - `JWT_SECRET`
 - `JWT_EXPIRES_IN`
 - `CORS_ORIGIN`
@@ -17,6 +17,7 @@
 ## 2. Runtime assumption
 
 - PostgreSQL is already running locally and reachable with the configured `DATABASE_URL`.
+- The rebuild PostgreSQL instance uses host port `5433` to avoid conflicts with other local PostgreSQL instances that may already use `5432`.
 - Backend and frontend run as local processes (`npm start` / `npm run dev`).
 
 ## 3. Seed strategy
