@@ -21,6 +21,7 @@ Use this list to verify the rebuilt project is complete and consistent.
 - [ ] Round lock enforced for later-stage edits
 - [ ] Winner progression works automatically
 - [ ] Goal scorer validation enforces available players only
+- [ ] Round completion is derived from `FINISHED` matches plus successful progression
 
 ## Authentication and roles
 
@@ -48,7 +49,7 @@ Use this list to verify the rebuilt project is complete and consistent.
 ## i18n
 
 - [ ] localized where possible but keep it simple
-- [ ] ENG default, NL, FR
+- [ ] `en` default, `nl`, `fr`
 - [ ] Locale switch persists in storage
 
 ## Seed and environment
@@ -67,4 +68,6 @@ Use this list to verify the rebuilt project is complete and consistent.
 
 - [ ] Role enum aligned in Prisma/backend/frontend/i18n
 - [ ] Match status enum aligned in Prisma/backend/frontend/i18n
+- [ ] Guest treated as unauthenticated context (not DB role)
+- [ ] `roundOrderNumber` used consistently as round route identifier
 - [ ] Docs and implementation have no contradiction

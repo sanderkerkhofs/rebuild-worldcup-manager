@@ -20,7 +20,7 @@ The app must support:
 - Admin: manages tournament flow and users
 - Referee: manages assigned match status/results/goals
 - User: authenticated viewer (same read rights as guest plus protected pages if required)
-- Guest: public read-only access
+- Guest: unauthenticated public read-only access (not persisted in database)
 
 ## Scope boundaries
 
@@ -45,9 +45,17 @@ The app must support:
 
 - Competition metadata is config-driven, not a database entity.
 - Stage metadata is stored on Match (`roundOrderNumber`, `roundName`).
+- Round identifier for APIs and service logic is `roundOrderNumber` (1..4).
 - Knockout matches cannot end in draw.
 - Goal registration is player-based (stable player id reference).
-- Next round can only unlock after previous round fully completed.
+- Next round can only unlock after previous round is logically complete (all matches `FINISHED` and progression has succeeded).
+
+## Canonical vocabulary
+
+- Guest: anonymous visitor context, not a persisted role in the `User` table.
+- `FINISHED`: match-level terminal status set by referee/admin when a single match ends.
+- Round completion (derived): a round is complete when all its matches are `FINISHED` and winner progression to the next round succeeds.
+- Locale codes: `en`, `nl`, `fr`.
 
 ## Architecture constraints
 

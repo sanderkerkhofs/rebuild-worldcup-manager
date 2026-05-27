@@ -43,7 +43,7 @@
 
 ## 5. Seeded account policy
 
-- include at least one login per major role
+- include at least one login per persisted role (`ADMIN`, `REFEREE`, `USER`)
 - include clear demo credentials shown on login page
 - never seed production-like secrets
 

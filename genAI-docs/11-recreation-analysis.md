@@ -37,7 +37,7 @@ This is enough to avoid scope drift during regeneration.
 The documentation states the important invariants and workflows:
 
 - knockout matches cannot end in a draw
-- later rounds unlock only after the previous round is completed
+- later rounds unlock only after the previous round is complete by rule (all matches `FINISHED` and progression executed)
 - goal scorers must be existing available players
 - goals are tied to player IDs for stable ranking
 - match status and result updates have strict role and state constraints
@@ -130,6 +130,8 @@ When recreating the app, keep these rules aligned everywhere:
 
 - role enum across Prisma, backend, frontend, and UI labels
 - match status enum across Prisma, backend, frontend, and UI labels
+- guest access is unauthenticated and not stored as a DB role
+- `roundOrderNumber` is the canonical round identifier in service/API boundaries
 - match progression order and round names
 - local PostgreSQL runtime assumption
 - no Docker deployment requirement

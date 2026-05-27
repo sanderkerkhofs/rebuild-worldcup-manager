@@ -17,6 +17,7 @@
   - round 2: Quarterfinal (4 matches)
   - round 3: Semifinal (2 matches)
   - round 4: Final (1 match)
+- Canonical round identifier is `roundOrderNumber` (1..4).
 
 ### FR-03 Team and player seed
 
@@ -35,8 +36,10 @@
   - `NOT_STARTED`
   - `IN_PROGRESS`
   - `FINISHED`
-  - `COMPLETED`
+- `FINISHED` is the terminal status a referee can set for an individual match.
+- Round completion is derived (not stored as match status): all matches in the round are `FINISHED` and progression to next round succeeds.
 - Score and status updates must obey role and round lock rules.
+- Draw results are invalid in all knockout matches.
 
 ### FR-05 Goal registration
 
@@ -49,7 +52,7 @@
 ### FR-06 Winner progression
 
 - When all matches in round N are finished with valid non-draw scores, winners are assigned to round N+1 in bracket order.
-- Round N moves from `FINISHED` to `COMPLETED` once progression is successful.
+- Round N becomes logically complete once progression is successful.
 
 ### FR-07 Authentication
 
@@ -70,6 +73,8 @@
 - User/Guest:
   - read-only access according to page policy
 
+Note: Guest is unauthenticated and not stored in the database.
+
 ### FR-09 Public competition views
 
 - Overview endpoint returns:
@@ -84,6 +89,7 @@
 
 - At least 3 pages must support 2+ locales.
 - Locale switch must be available in UI.
+- Canonical locale codes are `en`, `nl`, and `fr`.
 
 ## 2. Non-functional requirements
 

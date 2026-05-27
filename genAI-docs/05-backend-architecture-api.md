@@ -78,7 +78,7 @@ back-end/
 - `GET /api/competition/overview`
 - `GET /api/competition/bracket`
 - `GET /api/competition/rounds`
-- `POST /api/competition/rounds/:roundId/simulate` (admin)
+- `POST /api/competition/rounds/:roundOrderNumber/simulate` (admin)
 - `POST /api/competition/reset-matches` (admin)
 
 ### Matches
@@ -118,6 +118,8 @@ back-end/
 - Return typed DTOs only.
 - Keep enum values consistent between DB, backend, frontend.
 - Use explicit validation errors with clear messages.
+- Round routes use `roundOrderNumber` only (1..4) as identifier.
+- Round completion is derived by services (all round matches `FINISHED` + progression succeeded), not represented as a client-set match status.
 
 ## 6. Swagger requirements
 

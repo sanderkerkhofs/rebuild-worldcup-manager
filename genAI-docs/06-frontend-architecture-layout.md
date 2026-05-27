@@ -97,6 +97,7 @@ front-end/
 - support `nl`, `en`, `fr`
 - translation dictionary key-based
 - locale persisted in storage
+- use locale codes in state/API (`en`, `nl`, `fr`); UI labels may render uppercase (`EN`, `NL`, `FR`)
 - minimum pages translated:
   - home
   - login/register

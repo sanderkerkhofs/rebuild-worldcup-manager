@@ -19,7 +19,8 @@
 - `ADMIN`
 - `REFEREE`
 - `USER`
-- `GUEST`
+
+Guest is an unauthenticated access context, not a persisted DB role.
 
 ## 4. Permission matrix
 
@@ -64,5 +65,5 @@
   - Prisma schema
   - backend types
   - frontend types
-  - UI labels/i18n
+  - UI labels/i18n (for persisted roles)
 - keep status enum synchronized across same layers

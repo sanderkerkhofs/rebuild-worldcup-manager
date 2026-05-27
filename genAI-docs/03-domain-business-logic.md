@@ -11,12 +11,12 @@
 
 ## 2. Round progression algorithm
 
-Input: completed round id/order number.
+Input: completed `roundOrderNumber` (1..4).
 
 Algorithm:
 
 1. Load all matches from completed round.
-2. Verify each match is `FINISHED` or `COMPLETED` and has non-null scores.
+2. Verify each match is `FINISHED` and has non-null scores.
 3. Compute winner per match (`homeScore > awayScore` or vice versa).
 4. Validate winner count is even.
 5. Load next round matches.
@@ -26,15 +26,16 @@ Algorithm:
    - etc.
 7. Update next round matches with teams and reset score.
 8. Set next round match status to `NOT_STARTED`.
-9. Mark completed round matches from `FINISHED` to `COMPLETED`.
+
+Round completion is derived after this workflow succeeds.
 
 ## 3. Edit lock rule
 
 For any match in round N > 1:
 
-- status update forbidden if round N-1 not fully `COMPLETED`
-- result update forbidden if round N-1 not fully `COMPLETED`
-- goal add/edit forbidden if round N-1 not fully `COMPLETED`
+- status update forbidden if round N-1 is not complete (all matches `FINISHED` and progression executed)
+- result update forbidden if round N-1 is not complete (all matches `FINISHED` and progression executed)
+- goal add/edit forbidden if round N-1 is not complete (all matches `FINISHED` and progression executed)
 
 ## 4. Match status transitions
 
@@ -47,7 +48,11 @@ Referee cannot set arbitrary statuses.
 
 ### Admin transitions
 
-- Admin can set full lifecycle statuses, but still must obey business constraints.
+- Admin can set workflow statuses where needed, but round completion remains derived and progression-driven.
+
+### System transitions
+
+- Once all matches in round N are `FINISHED` and winner progression to N+1 succeeds, round N becomes complete (derived state).
 
 ## 5. Result update rules
 
@@ -66,7 +71,7 @@ Referee cannot set arbitrary statuses.
 ## 6. Simulation rules
 
 - Round simulation is admin-only.
-- Previous round must be finished/completed (except first round).
+- Previous round must be complete (except first round).
 - Round must have fully known teams.
 - Every simulated match must produce non-draw outcome.
 - Goals must reference valid players from participating teams.
@@ -75,12 +80,13 @@ Referee cannot set arbitrary statuses.
 
 ### Standings
 
-Computed from matches with status `FINISHED` or `COMPLETED` and known scores.
+Computed from matches with status `FINISHED` and known scores.
 
 - win = 3 points
-- draw = 1 point (kept for compatibility even if knockout should avoid draws)
 - loss = 0 points
 - sort by points desc, then goal difference desc
+
+Draws are not part of this competition model and should never occur in persisted knockout results.
 
 ### Top scorers
 
@@ -93,3 +99,4 @@ To keep the new clean build consistent:
 
 - keep one canonical role enum in backend, frontend, and DB
 - align match status vocabulary across all docs and UI labels
+- keep `roundOrderNumber` as the canonical round identifier in API and service boundaries

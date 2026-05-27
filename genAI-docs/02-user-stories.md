@@ -82,9 +82,9 @@ Acceptance criteria:
 
 ## US-09 Match edit lock by round order
 
-As the system, I want to block edits of later-round matches until previous round is completed.
+As the system, I want to block edits of later-round matches until the previous round is logically complete.
 
 Acceptance criteria:
 
-- Any status/result/goal edit for round N fails if round N-1 is not fully `COMPLETED`.
+- Any status/result/goal edit for round N fails if round N-1 is not complete (all matches `FINISHED` and progression executed).
 - Unlock occurs automatically once previous round completion is validated.

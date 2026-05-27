@@ -7,7 +7,7 @@
 - id (PK, string)
 - username (unique)
 - passwordHash
-- role (`ADMIN`, `REFEREE`, `USER`, `GUEST`)
+- role (`ADMIN`, `REFEREE`, `USER`)
 - teamId (nullable FK -> Team.id)
 - createdAt
 - updatedAt
@@ -45,7 +45,7 @@
 - homeScore (nullable)
 - awayScore (nullable)
 - matchDate
-- status (`PLANNED`, `NOT_STARTED`, `IN_PROGRESS`, `FINISHED`, `COMPLETED`)
+- status (`PLANNED`, `NOT_STARTED`, `IN_PROGRESS`, `FINISHED`)
 - createdAt
 - updatedAt
 
@@ -158,3 +158,5 @@ erDiagram
 ## 6. Why no Round table
 
 Round identity is fixed and finite for this MVP. Keeping round metadata inside Match keeps schema simpler while still enabling deterministic stage progression.
+
+Guest access is anonymous and not represented as a persisted `User` role.
