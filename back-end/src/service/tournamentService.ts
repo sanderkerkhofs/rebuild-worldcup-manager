@@ -2,6 +2,7 @@ import { MatchStatus, UserRole } from '@prisma/client';
 import { prisma } from '../repository/prisma/client';
 import { AppError } from '../util/errors';
 import { competitionConfig, roundsConfig } from '../util/competition';
+import { replaceGoalsFromScore } from './goalSyncService';
 import { isRoundFinished, progressRound } from './roundProgressionService';
 
 export async function getCompetition() {
@@ -127,6 +128,8 @@ export async function simulateRound(roundOrderNumber: number, actorRole: UserRol
         awayScore
       }
     });
+
+    await replaceGoalsFromScore(match.id, match.homeTeamId, match.awayTeamId, homeScore, awayScore);
   }
 
   await progressRound(roundOrderNumber);

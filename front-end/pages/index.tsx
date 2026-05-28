@@ -2,16 +2,21 @@ import Link from 'next/link';
 import useSWR from 'swr';
 import DashboardPanels from '../components/DashboardPanels';
 import { useI18n } from '../lib/i18n';
-import { getOverview } from '../services/competitionService';
+import { getOverview, getTopScorers } from '../services/competitionService';
 
 export default function HomePage() {
   const { t } = useI18n();
   const { data, error, isLoading } = useSWR('/overview', getOverview);
+  const { data: scorers, error: scorersError, isLoading: scorersLoading } = useSWR('/top-scorers', getTopScorers);
 
-  if (isLoading) return <section className="panel">Loading...</section>;
+  if (isLoading || scorersLoading) return <section className="panel">Loading...</section>;
   if (error || !data) return <section className="panel error">Failed to load overview.</section>;
 
   const currentRound = data.matches.find((match) => match.roundOrderNumber === 2)?.roundName || '8th Final';
+
+  const scorerRows = scorersError
+    ? ['Unable to load goalscorers right now.']
+    : (scorers ?? []).slice(0, 5).map((row) => `${row.teamFlag} ${row.playerName} (${row.teamName}) - ${row.goals} goals`);
 
   return (
     <>
@@ -49,7 +54,8 @@ export default function HomePage() {
         }}
         right={{
           title: 'Top 5 Goalscorers',
-          rows: data.topScorers.slice(0, 5).map((row) => `${row.playerId} - ${row._count.playerId} goals`)
+          rows: scorerRows,
+          emptyText: 'No goals recorded yet. Simulate a round or add match goals to populate this list.'
         }}
       />
 

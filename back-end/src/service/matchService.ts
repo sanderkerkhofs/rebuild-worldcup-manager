@@ -2,6 +2,7 @@ import { MatchStatus, UserRole } from '@prisma/client';
 import { prisma } from '../repository/prisma/client';
 import { MatchModel } from '../model/match';
 import { AppError } from '../util/errors';
+import { replaceGoalsFromScore } from './goalSyncService';
 import { canEditRound, isRoundFinished, progressRound } from './roundProgressionService';
 
 type Actor = {
@@ -92,6 +93,8 @@ export async function updateMatchResult(matchId: string, homeScore: number, away
     where: { id: matchId },
     data: { homeScore, awayScore, status: MatchStatus.FINISHED }
   });
+
+  await replaceGoalsFromScore(matchId, match.homeTeamId, match.awayTeamId, homeScore, awayScore);
 
   if (await isRoundFinished(updated.roundOrderNumber)) {
     await progressRound(updated.roundOrderNumber);
