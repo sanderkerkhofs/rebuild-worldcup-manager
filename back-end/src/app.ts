@@ -14,7 +14,7 @@ import { swaggerSpec } from './util/swagger';
 const app = express();
 
 app.use(helmet());
-app.use(cors({ origin: process.env.CORS_ORIGIN?.split(',') ?? ['http://localhost:3000'] }));
+app.use(cors({ origin: process.env.CORS_ORIGIN?.split(',') ?? ['http://localhost:8080'] }));
 app.use(express.json());
 
 app.get('/status', (_req, res) => {
@@ -30,7 +30,7 @@ app.use('/api/users', userRouter);
 
 app.use(errorHandler);
 
-const port = Number(process.env.APP_PORT || 3001);
+const port = Number(process.env.APP_PORT || 3000);
 app.listen(port, () => {
   // eslint-disable-next-line no-console
   console.log(`Backend listening on http://localhost:${port}`);
