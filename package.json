@@ -1,0 +1,26 @@
+{
+  "name": "rebuild-worldcup-manager",
+  "version": "1.0.0",
+  "description": "Worldcup Manager 2026 full-stack monorepo",
+  "private": true,
+  "scripts": {
+    "dev:backend": "npm --prefix back-end run dev",
+    "dev:frontend": "npm --prefix front-end run dev",
+    "build": "npm --prefix back-end run build && npm --prefix front-end run build",
+    "test": "npm --prefix back-end run test",
+    "db:generate": "npm --prefix back-end run db:generate",
+    "db:migrate": "npm --prefix back-end run db:migrate",
+    "db:seed": "npm --prefix back-end run db:seed"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sanderkerkhofs/rebuild-worldcup-manager.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sanderkerkhofs/rebuild-worldcup-manager/issues"
+  },
+  "homepage": "https://github.com/sanderkerkhofs/rebuild-worldcup-manager#readme"
+}

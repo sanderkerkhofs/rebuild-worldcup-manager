@@ -1,0 +1,104 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum UserRole {
+  ADMIN
+  REFEREE
+  USER
+}
+
+enum PlayerStatus {
+  AVAILABLE
+  UNAVAILABLE
+}
+
+enum MatchStatus {
+  PLANNED
+  NOT_STARTED
+  IN_PROGRESS
+  FINISHED
+}
+
+model User {
+  id           String    @id @default(cuid())
+  username     String    @unique
+  passwordHash String
+  role         UserRole
+  teamId       String?
+  team         Team?     @relation(fields: [teamId], references: [id])
+  assigned     Match[]   @relation("MatchReferee")
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+}
+
+model Team {
+  id               String   @id @default(cuid())
+  name             String   @unique
+  country          String
+  countryShortName String
+  countryFlag      String
+  users            User[]
+  players          Player[]
+  homeMatches      Match[]  @relation("MatchHome")
+  awayMatches      Match[]  @relation("MatchAway")
+  goals            Goal[]
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+}
+
+model Player {
+  id          String       @id @default(cuid())
+  teamId      String
+  team        Team         @relation(fields: [teamId], references: [id], onDelete: Cascade)
+  firstName   String
+  lastName    String
+  shirtNumber Int
+  position    String
+  status      PlayerStatus @default(AVAILABLE)
+  goals       Goal[]
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+
+  @@unique([teamId, shirtNumber])
+}
+
+model Match {
+  id               String      @id @default(cuid())
+  roundOrderNumber Int
+  roundName        String
+  homeTeamId       String?
+  awayTeamId       String?
+  refereeId        String?
+  homeTeam         Team?       @relation("MatchHome", fields: [homeTeamId], references: [id])
+  awayTeam         Team?       @relation("MatchAway", fields: [awayTeamId], references: [id])
+  referee          User?       @relation("MatchReferee", fields: [refereeId], references: [id])
+  homeScore        Int?
+  awayScore        Int?
+  matchDate        DateTime
+  status           MatchStatus @default(PLANNED)
+  goals            Goal[]
+  createdAt        DateTime    @default(now())
+  updatedAt        DateTime    @updatedAt
+
+  @@index([roundOrderNumber])
+  @@index([refereeId])
+}
+
+model Goal {
+  id        String   @id @default(cuid())
+  matchId   String
+  playerId  String
+  teamId    String
+  match     Match    @relation(fields: [matchId], references: [id], onDelete: Cascade)
+  player    Player   @relation(fields: [playerId], references: [id], onDelete: Cascade)
+  team      Team     @relation(fields: [teamId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+
+  @@index([matchId, playerId, teamId])
+}
