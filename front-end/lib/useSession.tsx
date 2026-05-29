@@ -1,4 +1,4 @@
-import { createContext, PropsWithChildren, useContext, useMemo, useState } from 'react';
+import { createContext, PropsWithChildren, useContext, useEffect, useMemo, useState } from 'react';
 import { SafeUser, SessionState } from '../types';
 import { clearSession, getToken, getUser, saveSession } from './session';
 
@@ -10,8 +10,13 @@ type SessionContextValue = SessionState & {
 const SessionContext = createContext<SessionContextValue | undefined>(undefined);
 
 export function SessionProvider({ children }: PropsWithChildren) {
-  const [token, setToken] = useState<string | null>(getToken());
-  const [user, setUser] = useState<SafeUser | null>(getUser());
+  const [token, setToken] = useState<string | null>(null);
+  const [user, setUser] = useState<SafeUser | null>(null);
+
+  useEffect(() => {
+    setToken(getToken());
+    setUser(getUser());
+  }, []);
 
   const value = useMemo(() => ({
     token,

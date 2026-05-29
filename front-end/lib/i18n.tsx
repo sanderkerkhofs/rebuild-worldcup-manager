@@ -1,4 +1,4 @@
-import { createContext, PropsWithChildren, useContext, useMemo, useState } from 'react';
+import { createContext, PropsWithChildren, useContext, useEffect, useMemo, useState } from 'react';
 import { getStoredLocale, setStoredLocale } from './session';
 
 type Locale = 'en' | 'nl' | 'fr';
@@ -29,8 +29,19 @@ type I18nContextValue = {
 
 const I18nContext = createContext<I18nContextValue | undefined>(undefined);
 
+function isLocale(value: string): value is Locale {
+  return value === 'en' || value === 'nl' || value === 'fr';
+}
+
 export function I18nProvider({ children }: PropsWithChildren) {
-  const [locale, setLocaleState] = useState<Locale>(getStoredLocale() as Locale);
+  const [locale, setLocaleState] = useState<Locale>('en');
+
+  useEffect(() => {
+    const storedLocale = getStoredLocale();
+    if (isLocale(storedLocale)) {
+      setLocaleState(storedLocale);
+    }
+  }, []);
 
   const setLocale = (value: Locale) => {
     setLocaleState(value);

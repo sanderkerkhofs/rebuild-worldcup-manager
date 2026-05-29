@@ -1,0 +1,583 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Worldcup Manager - Exam Study Guide</title>
+  <style>
+    :root {
+      --bg: #f5f4ef;
+      --paper: #fffef9;
+      --ink: #1b1f24;
+      --muted: #4e5b68;
+      --line: #d8d4c8;
+      --accent: #0b5d58;
+      --accent-soft: #e7f3f1;
+      --warn: #7a2f2f;
+      --mono: "JetBrains Mono", "Fira Code", "Consolas", monospace;
+      --sans: "Source Sans 3", "Segoe UI", "Helvetica", sans-serif;
+      --title: "Merriweather", "Georgia", serif;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      background:
+        radial-gradient(circle at 100% 0%, #e0efe9 0%, transparent 38%),
+        radial-gradient(circle at 0% 100%, #f0e9dd 0%, transparent 40%),
+        var(--bg);
+      color: var(--ink);
+      font-family: var(--sans);
+      line-height: 1.5;
+    }
+
+    .page {
+      max-width: 1100px;
+      margin: 24px auto 48px;
+      padding: 0 16px;
+    }
+
+    .hero {
+      background: linear-gradient(135deg, #fffdf7 0%, #f8f6ef 100%);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 24px;
+      box-shadow: 0 8px 24px rgba(22, 32, 44, 0.08);
+    }
+
+    h1, h2, h3 {
+      font-family: var(--title);
+      line-height: 1.25;
+      margin: 0 0 10px;
+    }
+
+    h1 { font-size: 2rem; }
+    h2 { font-size: 1.5rem; margin-top: 30px; }
+    h3 { font-size: 1.15rem; margin-top: 20px; }
+
+    p { margin: 8px 0; }
+
+    .subtitle {
+      color: var(--muted);
+      max-width: 80ch;
+    }
+
+    .card {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 18px;
+      margin-top: 16px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .kicker {
+      display: inline-block;
+      font-size: 0.78rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #104f4b;
+      background: var(--accent-soft);
+      border: 1px solid #c8e2de;
+      border-radius: 999px;
+      padding: 3px 10px;
+      margin-bottom: 8px;
+    }
+
+    ul, ol {
+      padding-left: 20px;
+      margin: 8px 0;
+    }
+
+    li { margin: 4px 0; }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+      font-size: 0.95rem;
+    }
+
+    th, td {
+      border: 1px solid var(--line);
+      padding: 8px;
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th {
+      background: #f2efe6;
+      font-weight: 700;
+    }
+
+    code {
+      font-family: var(--mono);
+      background: #f5f5f3;
+      border: 1px solid #e4e2db;
+      border-radius: 6px;
+      padding: 1px 5px;
+      font-size: 0.92em;
+    }
+
+    pre {
+      white-space: pre-wrap;
+      background: #f8f8f6;
+      border: 1px solid #e2dfd5;
+      border-radius: 10px;
+      padding: 12px;
+      font-family: var(--mono);
+      font-size: 0.9rem;
+      overflow-x: auto;
+    }
+
+    .warning {
+      border-left: 4px solid var(--warn);
+      background: #fff4f4;
+      padding: 10px 12px;
+      border-radius: 8px;
+      margin-top: 10px;
+    }
+
+    .toc a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    .toc a:hover {
+      text-decoration: underline;
+    }
+
+    .qa {
+      border-top: 1px dashed var(--line);
+      padding-top: 12px;
+      margin-top: 12px;
+    }
+
+    .footer-note {
+      margin-top: 20px;
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    @media (max-width: 900px) {
+      .grid { grid-template-columns: 1fr; }
+      h1 { font-size: 1.65rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header class="hero">
+      <span class="kicker">Exam Preparation Guide</span>
+      <h1>Worldcup Manager 2026 - Full-Stack Defense Study Notes</h1>
+      <p class="subtitle">
+        This guide explains your project from beginner to interview-ready level: architecture, process flow, entities,
+        backend and frontend logic, authentication, Swagger, React state, and key technology decisions.
+      </p>
+      <div class="card toc">
+        <h3>Table of Contents</h3>
+        <ol>
+          <li><a href="#project">Project in 60 seconds</a></li>
+          <li><a href="#tech">Technology stack and why</a></li>
+          <li><a href="#node-express-next">Node, Express, Next explained simply</a></li>
+          <li><a href="#architecture">Architecture and request process flow</a></li>
+          <li><a href="#entities">Domain entities and relationships</a></li>
+          <li><a href="#backend">Backend deep dive</a></li>
+          <li><a href="#frontend">Frontend deep dive</a></li>
+          <li><a href="#auth">Authentication, authorization, and security</a></li>
+          <li><a href="#swagger">Swagger and API testing strategy</a></li>
+          <li><a href="#state">React state and SWR data flow</a></li>
+          <li><a href="#exam-questions">Exam interview questions with model answers</a></li>
+          <li><a href="#defense">How to defend design choices</a></li>
+          <li><a href="#improvements">Improvement ideas if examiner asks</a></li>
+        </ol>
+      </div>
+    </header>
+
+    <section id="project" class="card">
+      <h2>1. Project in 60 Seconds</h2>
+      <p>
+        Worldcup Manager is a full-stack tournament management app. It allows users to view competition data,
+        and allows role-based users (admin/referee) to manage match progress, results, goals, and tournament progression.
+      </p>
+      <ul>
+        <li>Frontend: Next.js + React + TypeScript for pages and UI.</li>
+        <li>Backend: Express + TypeScript for API endpoints and business logic.</li>
+        <li>Database: PostgreSQL with Prisma ORM.</li>
+        <li>Security: JWT authentication + role-based authorization.</li>
+        <li>Documentation/testing: Swagger + Jest tests + manual API checks.</li>
+      </ul>
+    </section>
+
+    <section id="tech" class="card">
+      <h2>2. Technology Stack and Why</h2>
+      <table>
+        <thead>
+          <tr><th>Technology</th><th>Purpose</th><th>Why it fits this project</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>TypeScript</td><td>Type safety across frontend/backend</td><td>Reduces runtime bugs and improves exam-level code clarity.</td></tr>
+          <tr><td>Node.js</td><td>JavaScript runtime on server</td><td>Lets you write backend in JS/TS and share mental model with frontend.</td></tr>
+          <tr><td>Express</td><td>HTTP API framework</td><td>Simple routing + middleware pattern; easy to explain and debug.</td></tr>
+          <tr><td>Prisma</td><td>Database ORM and schema tool</td><td>Strong typing + migrations + readable data access methods.</td></tr>
+          <tr><td>PostgreSQL</td><td>Relational database</td><td>Good for structured entities and relationships in tournament domain.</td></tr>
+          <tr><td>Next.js (Pages)</td><td>React framework and routing</td><td>Fast setup, file-based routes, production-ready structure for full-stack students.</td></tr>
+          <tr><td>SWR</td><td>Data fetching and revalidation</td><td>Simple cache/revalidate pattern for dashboard-style pages.</td></tr>
+          <tr><td>JWT + bcrypt</td><td>Auth token + password hashing</td><td>Standard stateless auth and secure password storage.</td></tr>
+          <tr><td>Swagger</td><td>Live API documentation</td><td>Easy endpoint testing during development and demo.</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="node-express-next" class="card">
+      <h2>3. Node, Express, Next Explained Simply</h2>
+      <h3>What is Node.js?</h3>
+      <p>
+        Node.js is the runtime that executes JavaScript outside the browser. In this project, Node runs your backend server and tool scripts.
+      </p>
+
+      <h3>Why Express?</h3>
+      <p>
+        Express gives you a clean structure for APIs: route handlers, middleware, and error handling.
+        Your backend uses thin controllers and puts business rules in services.
+      </p>
+
+      <h3>Why Next.js?</h3>
+      <p>
+        Next.js gives file-based routing, easy page composition, and a production-ready React setup.
+        For a student project, it reduces setup complexity compared to building React router/config from zero.
+      </p>
+      <p>
+        You use the Pages Router, which is straightforward for learning and matches your route-per-file page structure.
+      </p>
+    </section>
+
+    <section id="architecture" class="card">
+      <h2>4. Architecture and Request Process Flow</h2>
+      <h3>Monorepo structure</h3>
+      <pre>root
+|- back-end   (Express API, Prisma)
+|- front-end  (Next.js UI)
+|- genAI-docs (project documentation)
+|- study-docs (exam study material)</pre>
+
+      <h3>Standard request flow</h3>
+      <pre>Browser page action
+-> front-end service function
+-> shared apiRequest() wrapper (adds JWT if present)
+-> Express route controller
+-> middleware (auth + role checks if protected)
+-> service layer business logic
+-> Prisma query/mutation
+-> PostgreSQL
+-> response JSON
+-> SWR revalidation and UI rerender</pre>
+
+      <h3>Important separation of concerns</h3>
+      <ul>
+        <li>Controllers: map HTTP to service functions.</li>
+        <li>Services: enforce business rules (round lock, role assignment, score validity).</li>
+        <li>Models: pure domain validations (example: no draw in knockout).</li>
+        <li>Prisma client: data persistence and relation loading.</li>
+      </ul>
+    </section>
+
+    <section id="entities" class="card">
+      <h2>5. Domain Entities and Relationships</h2>
+      <h3>Main entities</h3>
+      <ul>
+        <li>User: admin, referee, or normal user.</li>
+        <li>Team: nation/team metadata.</li>
+        <li>Player: belongs to a team, has position and availability status.</li>
+        <li>Match: two teams, optional referee, scores, round, and status.</li>
+        <li>Goal: links match + player + team (goal events).</li>
+      </ul>
+
+      <h3>Key constraints you can mention in exam</h3>
+      <ul>
+        <li>User username is unique.</li>
+        <li>Player has unique shirt number per team (teamId + shirtNumber).</li>
+        <li>Goal links to existing match/player/team with cascade deletion.</li>
+        <li>Match progression uses roundOrderNumber 1 to 4.</li>
+      </ul>
+
+      <h3>Business meaning of enums</h3>
+      <ul>
+        <li>UserRole: ADMIN, REFEREE, USER.</li>
+        <li>PlayerStatus: AVAILABLE, UNAVAILABLE.</li>
+        <li>MatchStatus: PLANNED, NOT_STARTED, IN_PROGRESS, FINISHED.</li>
+      </ul>
+    </section>
+
+    <section id="backend" class="card">
+      <h2>6. Backend Deep Dive</h2>
+
+      <h3>Backend startup and middleware</h3>
+      <ul>
+        <li>Global middleware: helmet, cors, JSON parser.</li>
+        <li>Routers mounted at /api/auth, /api/competition, /api/matches, /api/players, /api/users.</li>
+        <li>Error handler standardizes error responses.</li>
+      </ul>
+
+      <h3>Auth flow on backend</h3>
+      <ol>
+        <li>Register/login in authService.</li>
+        <li>Password hashing/verification with bcrypt.</li>
+        <li>JWT signed with user id as subject and role/team metadata.</li>
+        <li>authenticateToken middleware verifies token and sets req.authUser.</li>
+        <li>requireRoles middleware blocks forbidden roles.</li>
+      </ol>
+
+      <h3>Core business rules worth defending</h3>
+      <ul>
+        <li>Referee can edit only assigned matches (except admin who can edit all).</li>
+        <li>Knockout matches cannot end in draw (validateNonDraw).</li>
+        <li>Round N cannot be edited until round N-1 is complete.</li>
+        <li>When all matches in a round are finished, winners auto-progress to next round.</li>
+        <li>Goal creation checks player availability and team correctness.</li>
+      </ul>
+
+      <h3>Tournament operations</h3>
+      <ul>
+        <li>simulateRound(round): admin-only random scoring with draw prevention + goal sync.</li>
+        <li>resetMatches(): admin-only reset of goals and round statuses.</li>
+        <li>getOverview(): aggregated competition snapshot for frontend dashboard.</li>
+      </ul>
+
+      <h3>Testing scope implemented</h3>
+      <ul>
+        <li>Model tests: validate score and shirt number invariants.</li>
+        <li>Service tests: role guard checks for simulate/reset operations.</li>
+      </ul>
+    </section>
+
+    <section id="frontend" class="card">
+      <h2>7. Frontend Deep Dive</h2>
+
+      <h3>Global composition</h3>
+      <p>
+        In _app.tsx, every page is wrapped with I18nProvider, SessionProvider, and Layout.
+        This centralizes language state, auth session state, and consistent navigation/UI shell.
+      </p>
+
+      <h3>Role-based pages</h3>
+      <ul>
+        <li>Public: home, login, register.</li>
+        <li>Authenticated: matches and stats pages.</li>
+        <li>Admin only: admin page (simulate/reset/list users).</li>
+        <li>Referee only: referee page (assigned matches).</li>
+      </ul>
+
+      <h3>API consumption pattern</h3>
+      <ol>
+        <li>Page calls service function.</li>
+        <li>Service uses shared apiRequest wrapper.</li>
+        <li>apiRequest adds Authorization bearer token when available.</li>
+        <li>SWR caches and revalidates after mutations.</li>
+      </ol>
+
+      <h3>Useful frontend interview notes</h3>
+      <ul>
+        <li>You avoided direct fetch calls inside pages by using service modules.</li>
+        <li>You used conditional SWR keys to avoid unauthorized fetches.</li>
+        <li>You handled loading, error, and empty states in pages.</li>
+        <li>You implemented lightweight i18n with persisted locale.</li>
+      </ul>
+    </section>
+
+    <section id="auth" class="card">
+      <h2>8. Authentication, Authorization, and Security</h2>
+
+      <h3>Authentication</h3>
+      <ul>
+        <li>Login/register returns token + safe user object.</li>
+        <li>Token and user are saved in localStorage.</li>
+        <li>SessionProvider restores session after app mounts.</li>
+      </ul>
+
+      <h3>Authorization</h3>
+      <ul>
+        <li>Frontend: hides/displays pages based on role for UX clarity.</li>
+        <li>Backend: final authority via requireRoles and assignment checks.</li>
+      </ul>
+
+      <h3>Security controls present</h3>
+      <ul>
+        <li>Password hashing with bcrypt.</li>
+        <li>JWT secret from environment variable.</li>
+        <li>Helmet for secure HTTP headers.</li>
+        <li>CORS allow list with env configuration.</li>
+        <li>Centralized error messages (no stack leaks to client).</li>
+      </ul>
+
+      <div class="warning">
+        <strong>Potential config trap to know for defense:</strong>
+        frontend default API base URL falls back to <code>http://localhost:3001/api</code>,
+        while backend usually runs on <code>http://localhost:3000/api</code>.
+        In practice, set NEXT_PUBLIC_API_BASE_URL correctly in frontend env to avoid mismatch.
+      </div>
+    </section>
+
+    <section id="swagger" class="card">
+      <h2>9. Swagger and API Testing Strategy</h2>
+      <p>
+        Swagger is available at /api-docs and is generated from backend route annotations plus shared schema definitions.
+        Use it to prove endpoint behavior quickly in demos.
+      </p>
+
+      <h3>How to demonstrate in exam</h3>
+      <ol>
+        <li>Open /status to show service health.</li>
+        <li>Login in Swagger to get a JWT token.</li>
+        <li>Use Authorize button with Bearer token.</li>
+        <li>Test role-protected endpoint (for example simulate round) as admin.</li>
+        <li>Test forbidden case with user/referee token.</li>
+      </ol>
+
+      <h3>What examiners like to hear</h3>
+      <ul>
+        <li>Swagger helps contract validation and manual regression checks.</li>
+        <li>It speeds up backend debugging before touching frontend.</li>
+        <li>It communicates API behavior clearly to teammates.</li>
+      </ul>
+    </section>
+
+    <section id="state" class="card">
+      <h2>10. React State and SWR Data Flow</h2>
+
+      <h3>Three state categories in your frontend</h3>
+      <table>
+        <thead>
+          <tr><th>State type</th><th>Where</th><th>Examples</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Global app state</td><td>SessionProvider + I18nProvider</td><td>token, user, locale</td></tr>
+          <tr><td>Server state</td><td>SWR cache</td><td>matches, users, overview, scorers</td></tr>
+          <tr><td>Local UI state</td><td>useState in pages/forms</td><td>form values, action errors, status selection</td></tr>
+        </tbody>
+      </table>
+
+      <h3>Why this is good architecture</h3>
+      <ul>
+        <li>Global state is minimal and focused on session/locale only.</li>
+        <li>Server data is cached and refreshed with SWR mutate.</li>
+        <li>Local state handles temporary UI concerns without polluting global context.</li>
+      </ul>
+    </section>
+
+    <section id="exam-questions" class="card">
+      <h2>11. Exam Interview Questions with Model Answers</h2>
+
+      <div class="qa">
+        <h3>Q1. Why did you choose Next.js instead of plain React?</h3>
+        <p>
+          Next.js gives me a clear file-based routing structure and production-ready tooling with less setup.
+          For this project, that let me focus on business logic and role-based flows instead of custom build/router config.
+        </p>
+      </div>
+
+      <div class="qa">
+        <h3>Q2. Why Prisma instead of raw SQL?</h3>
+        <p>
+          Prisma gave me typed queries, safer refactors, and easier relation loading. I still use PostgreSQL under the hood,
+          but Prisma improves developer speed and readability for a student-level full-stack project.
+        </p>
+      </div>
+
+      <div class="qa">
+        <h3>Q3. Where is business logic located and why?</h3>
+        <p>
+          In services, not controllers. Controllers only map HTTP request/response. Services implement rules like
+          round locks, assignment checks, and progression. This keeps code maintainable and testable.
+        </p>
+      </div>
+
+      <div class="qa">
+        <h3>Q4. How do you prevent unauthorized updates?</h3>
+        <p>
+          Backend middleware authenticates JWT and checks roles. For matches, service logic additionally verifies referee assignment.
+          Frontend role checks are only UX guidance; backend enforces security.
+        </p>
+      </div>
+
+      <div class="qa">
+        <h3>Q5. How is knockout progression implemented?</h3>
+        <p>
+          After a match/round is finished, services verify all matches in that round are finished with non-draw scores.
+          Then winners are computed and assigned into next round fixtures in order.
+        </p>
+      </div>
+
+      <div class="qa">
+        <h3>Q6. How do you handle score-goal consistency?</h3>
+        <p>
+          When result is set, goalSyncService regenerates goal events based on score. This keeps total goals aligned with match score.
+        </p>
+      </div>
+
+      <div class="qa">
+        <h3>Q7. Why use SWR?</h3>
+        <p>
+          SWR simplifies fetching/caching/revalidation of server data. After mutations, I call mutate to refresh UI,
+          which avoids manual data synchronization bugs.
+        </p>
+      </div>
+
+      <div class="qa">
+        <h3>Q8. What are the weaknesses in current version?</h3>
+        <p>
+          Limited automated tests, localStorage token storage trade-offs, and some places where stricter validation could be added
+          (for example stronger DTO schemas on all endpoints). I can describe concrete improvements.
+        </p>
+      </div>
+
+      <div class="qa">
+        <h3>Q9. What does Express middleware give you in this project?</h3>
+        <p>
+          Reusable cross-cutting logic: auth verification, role checks, async error forwarding, and centralized error formatting.
+        </p>
+      </div>
+
+      <div class="qa">
+        <h3>Q10. Explain one end-to-end feature flow.</h3>
+        <p>
+          Example update result: user action in match detail page -> frontend service PUT call -> backend auth and role checks ->
+          matchService validates score and round lock -> database update -> goals synchronized -> response -> SWR mutate rerenders page.
+        </p>
+      </div>
+    </section>
+
+    <section id="defense" class="card">
+      <h2>12. How to Defend Your Design Choices</h2>
+      <ul>
+        <li>Say you optimized for clarity and maintainability as a learning project.</li>
+        <li>Explain separation of concerns: controller/service/model/repository responsibilities.</li>
+        <li>Show role-based security is enforced server-side, not only hidden in UI.</li>
+        <li>Point to Swagger as practical contract documentation and test utility.</li>
+        <li>Acknowledge current limitations and propose realistic next steps (shows engineering maturity).</li>
+      </ul>
+    </section>
+
+    <section id="improvements" class="card">
+      <h2>13. Improvement Ideas if Examiner Asks "What Next?"</h2>
+      <ol>
+        <li>Add more service-level tests (round progression edge cases, goal update consistency, auth failure scenarios).</li>
+        <li>Add request schema validation consistently with Zod at controller boundaries.</li>
+        <li>Move JWT from localStorage to httpOnly cookies for stronger XSS resilience.</li>
+        <li>Add structured logging and request correlation IDs for debugging.</li>
+        <li>Add CI workflow running lint, tests, and build automatically.</li>
+        <li>Improve referee UX by selecting players from dropdowns instead of entering IDs manually.</li>
+      </ol>
+      <p class="footer-note">
+        Study tip: practice a 5-minute explanation from architecture to one concrete flow, then a 2-minute security explanation.
+      </p>
+    </section>
+  </div>
+</body>
+</html>
